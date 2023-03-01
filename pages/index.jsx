@@ -4,7 +4,7 @@ import Username from '../components/username';
 import { getUsernames } from '../lib/usernames';
 import Navbar from '../components/navbar';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const users = await getUsernames();
   return {
     props: {
