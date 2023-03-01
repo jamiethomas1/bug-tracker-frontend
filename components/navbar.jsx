@@ -1,3 +1,4 @@
+import Document from 'next/document';
 import Head from 'next/head';
 
 export default function Navbar() {
@@ -7,7 +8,6 @@ export default function Navbar() {
                 <meta charset="UTF-8"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"/>
             </Head>
             <div className="navbar bg-dark navbar-expand-lg" data-bs-theme="dark" role="navigation">
                 <div className="container justify-content-space-around">
