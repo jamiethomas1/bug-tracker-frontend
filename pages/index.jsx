@@ -1,8 +1,10 @@
-import Head from 'next/head';
+import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout';
+import Navbar from '../components/navbar';
 import Username from '../components/username';
 import { getUsernames } from '../lib/usernames';
-import Navbar from '../components/navbar';
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 
 export async function getServerSideProps() {
   const users = await getUsernames();
@@ -14,17 +16,24 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ users }) {
+  if (!users) {
+    useEffect(() => {
+      window.location.replace("/login");
+    })
+    return;
+  }
+
   return (
     <>
-    <Navbar />
-    <Layout home>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <section>
-        <Username users={users} />
-      </section>
-    </Layout>
+      <Layout home>
+        <Navbar />
+        <Head>
+          <title>{siteTitle}</title>
+        </Head>
+        <section>
+          <Username users={users} />
+        </section>
+      </Layout>
     </>
   );
 }
