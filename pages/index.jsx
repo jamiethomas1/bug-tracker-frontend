@@ -5,6 +5,7 @@ import Username from '../components/username';
 import { getUsernames } from '../lib/usernames';
 import { redirect } from 'next/navigation';
 import { useEffect } from 'react';
+import { useSession } from 'next-auth/react'
 
 export async function getServerSideProps() {
   const users = await getUsernames();
@@ -16,7 +17,10 @@ export async function getServerSideProps() {
 }
 
 export default function Home({ users }) {
-  if (!users) {
+
+  const { data: session } = useSession();
+
+  if (!session) {
     useEffect(() => {
       window.location.replace("/login");
     })
