@@ -10,20 +10,38 @@ export default NextAuth({
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" }
       },
+      callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+          // user parameter is what is returned by authorize function
+          account.accessToken = user.access_token;
+          return true;
+        },
+        async jwt({ token, account }) {
+          if (user) {
+            token.accessToken = account.accessToken;
+          }
+          return token;
+        },
+        async session({ session, token, user }) {
+          session.accessToken = token.accessToken;
+          return session;
+        }
+      },
       async authorize(credentials, req) {
         // Take credentials, and return either a user object or false if invalid
-        const res = await fetch("/api/auth/login", {
+        
+        const res = await fetch("http://localhost/api/auth/login", {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {
             "Content-Type": "application/json"
           }
         })
-        const user = await res.json()
-        const userObj = user.user
+        
+        const user = await res.json().then(user => user.user);
 
-        if (res.ok && userObj) {
-          return user
+        if (res.ok && user) {
+          return user;
         }
 
         return null
