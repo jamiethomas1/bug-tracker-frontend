@@ -38,7 +38,7 @@ export default function Navbar() {
                             <ul className="dropdown-menu">
                                 <li><a href="/profile/USER_ID" className="dropdown-item">Profile</a></li>
                                 <li><a href="#" className="dropdown-item">Settings</a></li>
-                                <li><a href="/login/logout.php" className="dropdown-item">Log out</a></li>
+                                <li><a href="/api/auth/signout" className="dropdown-item">Log out</a></li>
                             </ul>
                         </div>
                     </div>
