@@ -21,10 +21,11 @@ export default function Home({ users }) {
   const { data: session } = useSession();
 
   if (!session) {
-    useEffect(() => {
-      window.location.replace("/login");
-    })
-    return;
+    return (
+      <>
+        <a href='/api/auth/signin'>Sign in</a>
+      </>
+    )
   }
 
   return (
