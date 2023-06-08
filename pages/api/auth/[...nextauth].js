@@ -1,51 +1,37 @@
 import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import GitHubProvider from "next-auth/providers/github"
 
 export default NextAuth({
   providers: [
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Credentials',
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" }
-      },
-      callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-          // user parameter is what is returned by authorize function
-          account.accessToken = user.access_token;
-          return true;
-        },
-        async jwt({ token, account }) {
-          if (user) {
-            token.accessToken = account.accessToken;
-          }
-          return token;
-        },
-        async session({ session, token, user }) {
-          session.accessToken = token.accessToken;
-          return session;
-        }
-      },
-      async authorize(credentials, req) {
-        // Take credentials, and return either a user object or false if invalid
-        
-        const res = await fetch("http://localhost/api/auth/login", {
-          method: 'POST',
-          body: JSON.stringify(credentials),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        
-        const user = await res.json().then(user => user.user);
-
-        if (res.ok && user) {
-          return user;
-        }
-
-        return null
-      }
+    GitHubProvider({
+      id: 'github',
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     })
-  ]
+  ],
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+
+      return token;
+    },
+    async signIn({ user, account, profile, email, credentials }) {
+      const authenticated = await fetch("http://localhost/api/checkUser", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" }
+      });
+
+      console.log(authenticated);
+
+      if (authenticated) {
+        return true;
+      }
+
+      return false;
+    }
+  }
 })

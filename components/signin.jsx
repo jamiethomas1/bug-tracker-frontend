@@ -12,7 +12,7 @@ export default function SignIn() {
         // Don't refresh
         e.preventDefault();
         console.log('Email: ', email);
-        await signIn('credentials', {
+        await signIn('github', {
             redirect: false,
             email,
             password
