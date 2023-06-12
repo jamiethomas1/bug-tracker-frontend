@@ -1,19 +1,24 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout';
 import Navbar from '../components/navbar';
-import Username from '../components/username';
+import Usernames from '../components/username';
 import { getUsernames } from '../lib/usernames';
-import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
 import { useSession } from 'next-auth/react'
 
-export async function getServerSideProps() {
-  const users = await getUsernames();
+export async function getServerSideProps(context) {
+  const token = context.req.cookies['next-auth.session-token'];
+  if (token) {
+    const users = await getUsernames(token);
+    return {
+      props: {
+        users
+      }
+    };
+  }
+
   return {
-    props: {
-      users
-    }
-  };
+    props: {}
+  }
 }
 
 export default function Home({ users }) {
@@ -36,7 +41,7 @@ export default function Home({ users }) {
           <title>{siteTitle}</title>
         </Head>
         <section>
-          <Username users={users} />
+          <Usernames users={users} />
         </section>
       </Layout>
     </>
