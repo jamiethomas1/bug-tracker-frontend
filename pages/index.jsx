@@ -39,7 +39,6 @@ export default function Home({ users }) {
         <Head>
           <title>{siteTitle}</title>
         </Head>
-        <Navbar />
         <section>
           <Usernames users={users} />
         </section>

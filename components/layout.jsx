@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from './styles/layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
+import Navbar from './navbar';
 
 const name = 'Jamie Thomas';
 export const siteTitle = 'Bug Tracker';
@@ -21,7 +22,9 @@ export default function Layout({ children, home }) {
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <header className={styles.header}>
+            <main>
+                <Navbar />
+                <header className={styles.header}>
                 {home ? (
                     <>
                         <h1 className={utilStyles.heading2x1}>{name}</h1>
@@ -36,7 +39,8 @@ export default function Layout({ children, home }) {
                     </>
                 )}
             </header>
-            <main>{children}</main>
+                <div>{children}</div>
+            </main>
             {!home && (
                 <div className={styles.backToHome}>
                     <Link href="/">← Back to home</Link>
