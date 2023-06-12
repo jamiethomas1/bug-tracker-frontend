@@ -17,3 +17,8 @@
     color: white;
     text-decoration: none;
 }
+
+.profilepicture {
+    width: 32px;
+    border-radius: 50%;
+}
