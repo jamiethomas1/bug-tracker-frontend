@@ -1,5 +1,6 @@
 import Document from 'next/document';
 import Head from 'next/head';
+import styles from './styles/navbar.module.css';
 
 export default function Navbar() {
     return (
@@ -11,7 +12,7 @@ export default function Navbar() {
             </Head>
             <div className="navbar bg-dark navbar-expand-lg" data-bs-theme="dark" role="navigation">
                 <div className="container justify-content-space-around">
-                    <a href="/" className="navbar-brand fw-bold">Bug Tracker</a>
+                    <a href="/" className={styles.logo + " navbar-brand fw-bold"}>Bug Tracker</a>
                     <div className="d-flex align-items-center gap-4">
                         <ul className="nav nav-pills">
                             <li className="nav-item" role="presentation">
