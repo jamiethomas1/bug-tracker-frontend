@@ -35,7 +35,7 @@ export default function Home({ users }) {
 
   return (
     <>
-      <Layout home>
+      <Layout home session={session}>
         <Head>
           <title>{siteTitle}</title>
         </Head>

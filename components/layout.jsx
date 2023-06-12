@@ -8,7 +8,7 @@ import Navbar from './navbar';
 const name = 'Jamie Thomas';
 export const siteTitle = 'Bug Tracker';
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, session }) {
     return (
         <div className={styles.container}>
             <Head>
@@ -23,7 +23,7 @@ export default function Layout({ children, home }) {
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
             <main>
-                <Navbar />
+                <Navbar session={session} />
                 <header className={styles.header}>
                 {home ? (
                     <>
