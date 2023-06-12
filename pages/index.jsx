@@ -36,10 +36,10 @@ export default function Home({ users }) {
   return (
     <>
       <Layout home>
-        <Navbar />
         <Head>
           <title>{siteTitle}</title>
         </Head>
+        <Navbar />
         <section>
           <Usernames users={users} />
         </section>
