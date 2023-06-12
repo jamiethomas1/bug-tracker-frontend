@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
+import * as jose from 'jose';
 
 export default NextAuth({
   providers: [
@@ -10,7 +11,7 @@ export default NextAuth({
     })
   ],
   callbacks: {
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account, user }) {
       
       if (account) {
         token.accessToken = account.access_token;
@@ -25,13 +26,37 @@ export default NextAuth({
         headers: { "Content-Type": "application/json" }
       });
 
-      console.log(authenticated);
-
       if (authenticated) {
         return true;
       }
 
       return false;
+    },
+    async session({ session, user, token }) {
+      // console.log("Session: ", session)
+      // console.log("User: ", user)
+      // console.log("Token: ", token)
+      session.accessToken = token;
+      return session;
+    }
+  },
+  jwt: {
+    async encode({ token }) {
+      const secret = new TextEncoder().encode(process.env.JWT_SIGNATURE_KEY);
+      const alg = 'HS512';
+      const date = new Date();
+      const jwt = await new jose.SignJWT(token)
+        .setProtectedHeader({ alg })
+        .setIssuedAt()
+        .setExpirationTime(date.getTime() + 1800)
+        .sign(secret);
+      return jwt;
+    },
+    async decode({ token }) {
+      const secret = new TextEncoder().encode(process.env.JWT_SIGNATURE_KEY);
+      const jwt = token;
+      const { payload } = await jose.jwtVerify(jwt, secret);
+      return payload;
     }
   }
 })
