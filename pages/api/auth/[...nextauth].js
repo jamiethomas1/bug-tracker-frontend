@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google";
 import * as jose from 'jose';
 
 export default NextAuth({
@@ -8,6 +9,11 @@ export default NextAuth({
       id: 'github',
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      id: 'google',
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
   callbacks: {
