@@ -33,7 +33,7 @@ export default function Home({ users }) {
 
   return (
     <>
-      <Layout home session={session}>
+      <Layout home session={session} pageName="Dashboard">
         <section>
           <Usernames users={users} />
         </section>

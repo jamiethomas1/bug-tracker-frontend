@@ -14,7 +14,7 @@ export default function Organisations() {
 
     return (
         <>
-        <Layout session={session}>
+        <Layout session={session} pageName="My Organisations">
             <p>Hello</p>
         </Layout>
         </>

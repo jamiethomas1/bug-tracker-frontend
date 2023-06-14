@@ -5,10 +5,10 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import Navbar from './navbar';
 
-const name = 'Jamie Thomas';
+const page = '';
 export const siteTitle = 'Bug Tracker';
 
-export default function Layout({ children, home, session, title=siteTitle }) {
+export default function Layout({ children, home, session, title=siteTitle, pageName=page }) {
     return (
         <div className={styles.container}>
             <Head>
@@ -28,13 +28,13 @@ export default function Layout({ children, home, session, title=siteTitle }) {
                 <header className={styles.header}>
                 {home ? (
                     <>
-                        <h1 className={utilStyles.heading2x1}>{name}</h1>
+                        <h1 className={utilStyles.heading2x1}>{pageName}</h1>
                     </>
                 ) : (
                     <>
                         <h2 className={utilStyles.headingLg}>
                             <Link href="/" className={utilStyles.colorInherit}>
-                                {name}
+                                {pageName}
                             </Link>
                         </h2>
                     </>
