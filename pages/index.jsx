@@ -1,6 +1,4 @@
-import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout';
-import Navbar from '../components/navbar';
+import Layout from '../components/layout';
 import Usernames from '../components/username';
 import { getUsernames } from '../lib/usernames';
 import { useSession } from 'next-auth/react'
@@ -36,9 +34,6 @@ export default function Home({ users }) {
   return (
     <>
       <Layout home session={session}>
-        <Head>
-          <title>{siteTitle}</title>
-        </Head>
         <section>
           <Usernames users={users} />
         </section>
