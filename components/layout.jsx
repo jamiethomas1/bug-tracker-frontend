@@ -32,11 +32,7 @@ export default function Layout({ children, home, session, title=siteTitle, pageN
                     </>
                 ) : (
                     <>
-                        <h2 className={utilStyles.headingLg}>
-                            <Link href="/" className={utilStyles.colorInherit}>
-                                {pageName}
-                            </Link>
-                        </h2>
+                        <h2 className={utilStyles.headingLg}>{pageName}</h2>
                     </>
                 )}
             </header>
