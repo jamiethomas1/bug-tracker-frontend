@@ -2,6 +2,7 @@ import Layout from "../../../components/layout"
 import OrgList from "../../../components/orglist";
 import { useSession } from "next-auth/react"
 import { getOrganisations } from "../../../lib/organisations";
+import OrgModal from "../../../components/modal";
 
 export async function getServerSideProps(context) {
     const token = context.req.cookies['next-auth.session-token'];
@@ -9,7 +10,8 @@ export async function getServerSideProps(context) {
         const orgList = await getOrganisations(token);
         return {
             props: {
-                orgList
+                orgList,
+                token
             }
         }
     }
@@ -18,7 +20,7 @@ export async function getServerSideProps(context) {
     }
 }
 
-export default function Organisations({ orgList }) {
+export default function Organisations({ orgList, token }) {
     const { data: session } = useSession();
 
     if (!session) {
@@ -28,10 +30,12 @@ export default function Organisations({ orgList }) {
             </>
           )
     }
-
+    
     return (
         <>
         <Layout session={session} pageName="My Organisations">
+            <OrgModal session={session} token={token} />
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createOrg">Create Organisation</button>
             <OrgList list={orgList} />
         </Layout>
         </>
