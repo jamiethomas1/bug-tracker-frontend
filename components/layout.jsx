@@ -12,7 +12,7 @@ export default function Layout({ children, home, session, title=siteTitle, pageN
     return (
         <div className={styles.container}>
             <Head>
-                <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+                <link rel="shortcut icon" href="#" type="image/x-icon" />
                 <meta name="description" content="Learn how to build a personal website using Next.js" />
                 <meta property='og:image' 
                     content={`https://og-image.vercel.app/${encodeURI(
