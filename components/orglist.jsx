@@ -1,7 +1,7 @@
 export default function OrgList({ list }) {
 
     const listItems = list.map((org) =>
-        <li>{org.name}</li>
+        <li key={org.orgID}>{org.name}</li>
     );
 
     return (
