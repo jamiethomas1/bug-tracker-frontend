@@ -16,9 +16,6 @@ export default function Navbar({ session }) {
                     <div className="d-flex align-items-center gap-4">
                         <ul className="nav nav-pills">
                             <li className="nav-item" role="presentation">
-                                <a className="nav-link" href="/my/organisations/">Organisations</a>
-                            </li>
-                            <li className="nav-item" role="presentation">
                                 <a className="nav-link" href="/my/projects/">Projects</a>
                             </li>
                             <li className="nav-item" role="presentation">

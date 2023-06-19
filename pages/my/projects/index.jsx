@@ -1,16 +1,16 @@
 import Layout from "../../../components/layout"
-import OrgTable from "../../../components/orgtable";
+import ProjTable from "../../../components/projtable";
 import { useSession } from "next-auth/react"
-import { getOrganisations } from "../../../lib/organisations";
-import OrgModal from "../../../components/modal";
+import { getProjects } from "../../../lib/projects";
+import ProjModal from "../../../components/modal";
 
 export async function getServerSideProps(context) {
     const token = context.req.cookies['next-auth.session-token'];
     if (token) {
-        const orgList = await getOrganisations(token);
+        const projList = await getProjects(token);
         return {
             props: {
-                orgList,
+                projList,
                 token
             }
         }
@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
     }
 }
 
-export default function Organisations({ orgList, token }) {
+export default function Projects({ projList, token }) {
     const { data: session } = useSession();
 
     if (!session) {
@@ -33,10 +33,10 @@ export default function Organisations({ orgList, token }) {
     
     return (
         <>
-        <Layout session={session} pageName="My Organisations">
-            <OrgModal session={session} token={token} />
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createOrg">Create Organisation</button>
-            <OrgTable list={orgList} />
+        <Layout session={session} pageName="My Projects">
+            <ProjModal session={session} token={token} />
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createProj">Create Project</button>
+            <ProjTable list={projList} />
         </Layout>
         </>
     )
