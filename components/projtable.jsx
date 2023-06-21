@@ -1,7 +1,7 @@
 export default function ProjTable({ list }) {
 
     const projRows = list.map((proj) => 
-        <tr key={proj.projID}>
+        <tr onClick={() => {window.location = "../projects/" + proj.projID}} style={{ 'cursor': 'pointer' }} key={proj.projID}>
             <td>{proj.name}</td>
             <td>{proj.ownerID}</td>
         </tr>
